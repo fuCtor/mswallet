@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema targetNamespace="http://schemas.microsoft.com/wallet/walletitem"
+        attributeFormDefault="unqualified"
+        elementFormDefault="qualified"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:x="http://schemas.microsoft.com/wallet/walletitem">
+
+  
+  <simpleType name="GUID">
+    <annotation>
+      <documentation xml:lang="en">
+        A 128 bit GUID, generally the id of an element.
+      </documentation>
+    </annotation>
+    <restriction base="string">
+      <pattern value="\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\}"/>
+    </restriction>
+  </simpleType>
+  
+  
+  <simpleType name="BarcodeSymbology">
+    <restriction base="string">
+      <enumeration value="QR"/>
+      <enumeration value="PDF417"/>
+      <enumeration value="AZTEC"/>
+      <enumeration value="UPCA"/>
+      <enumeration value="UPCE"/>
+      <enumeration value="EAN13"/>
+      <enumeration value="EAN8"/>
+      <enumeration value="ITF"/>
+      <enumeration value="CODE39"/>
+      <enumeration value="CODE128"/>
+    </restriction>
+  </simpleType>
+
+
+  <complexType name="Barcode">
+    <all>
+      <element name="Symbology" type="x:BarcodeSymbology"/>
+      <element name="Value"/>
+    </all>
+  </complexType>
+
+  
+  <simpleType name="Color">
+    <restriction base="string">
+      <pattern value="#[0-9a-fA-F]{6}"/>
+    </restriction>
+  </simpleType>
+
+
+  <!-- http://msdn.microsoft.com/en-us/library/1at0z4ew.aspx -->
+  <simpleType name="DateTimeFormat">
+    <restriction base="string">
+      <enumeration value="FullDateTime"/>
+      <enumeration value="LongDate"/>
+      <enumeration value="LongTime"/>
+      <enumeration value="MonthDay"/>
+      <enumeration value="RFC1123"/>
+      <enumeration value="ShortDateTime"/>
+      <enumeration value="ShortDate"/>
+      <enumeration value="ShortTime"/>
+      <enumeration value="YearMonth"/>
+    </restriction>
+  </simpleType>
+
+
+  <simpleType name="Kind">
+    <restriction base="string">
+      <enumeration value="PaymentInstrument"/>
+      <enumeration value="General"/>
+      <enumeration value="Deal"/>
+      <enumeration value="BoardingPass"/>
+      <enumeration value="Ticket"/>
+      <enumeration value="MembershipCard"/>
+    </restriction>
+  </simpleType>
+
+
+  <!-- http://msdn.microsoft.com/en-us/library/dwhawy9k(v=VS.95).aspx -->
+  <simpleType name="NumberFormat">
+    <restriction base="string">
+      <enumeration value="Decimal"/>
+      <enumeration value="Percent"/>
+      <enumeration value="Exponential"/>
+      <enumeration value="Currency"/>
+    </restriction>
+  </simpleType>
+
+
+  <simpleType name="ColorFormat">
+    <restriction base="string">
+      <pattern value="#[\dA-F]{6}"/>
+    </restriction>
+  </simpleType>
+
+  
+  <simpleType name="WebServiceUrl">
+    <restriction base="anyURI">
+      <pattern value="http[s]?://.*"/>
+    </restriction>
+  </simpleType>
+
+
+  <complexType name="Location">
+    <all>
+      <element name="Latitude" type="double" minOccurs="1"/>
+      <element name="Longitude" type="double" minOccurs="1"/>
+      <element name="Altitude" type="double" minOccurs="0"/>
+      <element name="DisplayMessage" minOccurs="0"/>
+    </all>
+  </complexType>
+  
+
+  <complexType name="Property">
+    <all>
+      <element name="Key"/>
+      <element name="Name"/>
+      <element name="Value"/>
+      <element name="AutoDetectLinks" minOccurs="0"/>
+      <element name="DateTimeFormat" type="x:DateTimeFormat" minOccurs="0"/>
+      <element name="NumberFormat" type="x:NumberFormat" minOccurs="0"/>
+      <element name="CurrencyCode" minOccurs="0"/>
+      <element name="SummaryViewPosition" type="integer" minOccurs="0"/>
+    </all>
+  </complexType>
+
+  
+  <complexType name="RelevantDate">
+    <all>
+      <element name="Date" type="dateTime" minOccurs="1"/>
+      <element name="RelevantDateDisplayMessage" minOccurs="0"/>
+    </all>
+  </complexType>
+
+
+  <complexType name="Locations">
+    <choice>
+      <element name="Location" type="x:Location" minOccurs="0" maxOccurs="25"/>
+    </choice>
+  </complexType>
+
+  
+  <complexType name="Header">
+    <choice>
+      <element name="Property" type="x:Property" minOccurs="1" maxOccurs="2"/>
+    </choice>
+  </complexType>
+  
+
+  <complexType name="Primary">
+    <choice>
+      <element name="Property" type="x:Property" minOccurs="1" maxOccurs="2"/>
+    </choice>
+  </complexType>
+  
+
+  <complexType name="Secondary">
+    <choice>
+      <element name="Property" type="x:Property" minOccurs="1" maxOccurs="5"/>
+    </choice>
+  </complexType>
+  
+
+  <complexType name="Center">
+    <choice>
+      <element name="Property" type="x:Property" minOccurs="1" maxOccurs="1"/>
+    </choice>
+  </complexType>
+  
+
+  <complexType name="Footer">
+    <choice>
+      <element name="Property" type="x:Property" minOccurs="1" maxOccurs="4"/>
+    </choice>
+  </complexType>
+
+
+  <complexType name="DisplayProperties">
+    <sequence>
+      <element name="Header" type="x:Header" minOccurs="0" maxOccurs="1"/>
+      <element name="Primary" type="x:Primary" minOccurs="0" maxOccurs="1"/>
+      <element name="Secondary" type="x:Secondary" minOccurs="0" maxOccurs="1"/>
+      <element name="Center" type="x:Center" minOccurs="0" maxOccurs="1"/>
+      <element name="Footer" type="x:Footer" minOccurs="0" maxOccurs="1"/>
+      <element name="Property" type="x:Property" minOccurs="0" maxOccurs="50"/>
+    </sequence>
+  </complexType>
+
+  
+  <complexType name="TransactionItem">
+    <all>
+      <element name="Description"/>
+      <element name="DisplayAmount"/>
+      <element name="Id"/>
+      <element name="DisplayLocation"/>
+      <element name="TransactionDate" type="dateTime"/>
+      <element name="IgnoreTimeOfDay" minOccurs="0" type="boolean"/>
+      <element name="IsLaunchable" minOccurs="0" type="boolean"/>
+    </all>
+  </complexType>
+
+
+  <complexType name="TransactionHistory">
+    <choice>
+      <element name="TransactionItem" type="x:TransactionItem" minOccurs="0" maxOccurs="30"/>
+    </choice>
+  </complexType>  
+
+
+  <element name="WalletItem">
+    <complexType>
+      <all>
+        <element name="Version"/>
+        <element name="Id" minOccurs="0"/>
+        <element name="WebServiceUrl" minOccurs="0" type="x:WebServiceUrl"/>
+        <element name="AuthenticationToken" minOccurs="0"/>
+        <element name="ProductId" type="x:GUID" minOccurs="0"/>
+        <element name="Kind" type="x:Kind"/>
+        <element name="DisplayName"/>
+        <element name="IssuerDisplayName"/>
+        <element name="LogoText" minOccurs="0"/>
+        <element name="ExpirationDate" type="dateTime" minOccurs="0"/>
+        <element name="Barcode" type="x:Barcode" minOccurs="0"/>
+        <element name="IsLaunchable" minOccurs="0" type="boolean"/>
+        <element name="DisplayMessage" minOccurs="0"/>
+        <element name="IsDisplayMessageLaunchable" minOccurs="0" type="boolean"/>
+        <element name="HeaderColor" type="x:ColorFormat" minOccurs="1"/>
+        <element name="BodyColor" type="x:ColorFormat" minOccurs="1"/>
+        <element name="HeaderFontColor" type="x:ColorFormat" minOccurs="0"/>
+        <element name="BodyFontColor" type="x:ColorFormat" minOccurs="0"/>
+        <element name="RelevantDate" type="x:RelevantDate" minOccurs="0"/>
+        <element name="RelevantLocations" type="x:Locations" minOccurs="0"/>
+        <element name="DisplayProperties" type="x:DisplayProperties" minOccurs="0"/>
+        <element name="TransactionHistory" type="x:TransactionHistory" minOccurs="0"/>
+        <element name="IsMoreTransactionHistoryLaunchable" minOccurs="0" type="boolean"/>
+      </all>
+    </complexType>
+  </element>
+
+
+
+</schema>
