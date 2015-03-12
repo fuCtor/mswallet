@@ -11,6 +11,7 @@ module Mswallet
       @pass = pass || self.class.init
       @locales = {}
       @files = []
+      yield(self) if block_given?
     end
 
     def []=(key, val)
@@ -120,7 +121,22 @@ module Mswallet
 
         @locales.each do |lang, file|
           zip.put_next_entry "#{lang}/strings.txt"
-          zip.print file
+
+          data = ''
+          case file
+            when String
+              data = file
+            when File
+              data = file.read
+            when Hash
+              file.each do |k, v|
+                data += "#{k}=#{v}\n"
+              end
+            else
+              fail 'wrong locale object'
+          end
+
+          zip.print data
         end
       end
       

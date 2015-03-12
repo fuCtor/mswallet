@@ -9,8 +9,9 @@ module Rack
     def call(env)
       @parameters['authToken'] = env['HTTP_AUTHENTICATIONTOKEN'] if env['HTTP_AUTHENTICATIONTOKEN']
       @parameters.merge!(Rack::Utils.parse_nested_query(env['QUERY_STRING']))
-      serial_number = find_id env['PATH_INFO']
-      @parameters[:serial_number] = serial_number
+      @parameters['path'] = env['PATH_INFO']
+      serial_number = find_id @parameters['path']
+      @parameters['serialNumber'] = serial_number
       if serial_number
         response = Mswallet::Handler.update(@parameters)
         header = {'Content-Type' => 'application/vnd.ms.wallet',

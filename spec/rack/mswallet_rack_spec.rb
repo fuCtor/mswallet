@@ -70,7 +70,7 @@ describe Rack::MswalletRack do
   context 'rack middleware' do
     let(:result) { nil }
     before do
-      expect(Mswallet::Handler).to receive(:update).with(serial_number: serial).and_return (result)
+      expect(Mswallet::Handler).to receive(:update).with('path' => update_path, 'serialNumber' => serial).and_return (result)
       get update_path
     end
     subject { last_response.status }

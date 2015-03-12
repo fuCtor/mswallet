@@ -11,7 +11,6 @@ describe Mswallet::Pass do
         'IssuerDisplayName' => ['Issuer Display Name missing'],
         'HeaderColor' => ['Header Color missing', %W(#000000 #AABBCC)],
         'BodyColor' => ['Body Name missing', %W(#000000 #AABBCC)]
-
     }
   end
 
@@ -50,13 +49,59 @@ describe Mswallet::Pass do
     expect( pass.files ).to_not be_empty
   end
 
-  it '#add_locale' do
-    expect { pass } .to_not raise_error
-    expect( pass.locales ).to be_empty
-    expect { pass.add_locale 'ru-RU', ''  } .to_not raise_error
-    expect( pass.locales ).to_not be_empty
-    expect( pass.locales['ru-RU'] ).to be_truthy
+  context 'locale' do
+    it '#add_locale' do
+
+      expect { pass } .to_not raise_error
+      expect( pass.locales ).to be_empty
+      expect { pass.add_locale 'ru-RU', ''  } .to_not raise_error
+      expect { pass.add_locale 'ru-RU', {}  } .to_not raise_error
+      expect { pass.add_locale 'ru-RU', File.new(__FILE__, 'r')  } .to_not raise_error
+      expect { pass.add_locale 'ru-RU', true  } .to_not raise_error
+
+      expect( pass.locales ).to_not be_empty
+      expect( pass.locales['ru-RU'] ).to be_truthy
+    end
+
+    context 'serialize' do
+      before do
+        [99, 159, 336].each do |size|
+          pass.add_file name: "Logo#{size}x#{size}.png", content: ''
+        end
+
+        pass.add_locale 'ru-RU', locale
+      end
+
+      context 'from string' do
+        let(:locale) { '' }
+        it do
+          expect { pass.stream } .to_not raise_error
+        end
+      end
+
+      context 'from file' do
+        let(:locale) { File.new(__FILE__, 'r') }
+        it do
+          expect { pass.stream } .to_not raise_error
+        end
+      end
+
+      context 'from hash' do
+        let(:locale) { {} }
+        it do
+          expect { pass.stream } .to_not raise_error
+        end
+      end
+
+      context 'from other' do
+        let(:locale) { nil }
+        it do
+          expect { pass.stream } .to raise_error 'wrong locale object'
+        end
+      end
+    end
   end
+
 
   it '#pass_check' do
     expect { pass } .to_not raise_error

@@ -7,10 +7,10 @@ Gem::Specification.new do |spec|
   spec.name          = "mswallet"
   spec.version       = Mswallet::VERSION
   spec.authors       = ["ajieks@vmp.ru"]
-  spec.email         = ["ajieks@vmp.ru"]
-  spec.summary       = %q{Write a short summary. Required.}
-  spec.description   = %q{Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.email         = ["ajieks@vmp.ru", "schalexe@gmail.com"]
+  spec.summary       = %q{A Windows Phone wallet pass generator.}
+  spec.description   = %q{This gem allows you to create passes for Windows Phone Wallet. Unlike some, this works with Rails but does not require it.}
+  spec.homepage      = "http://github.com/vsmap/mswallet"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -27,6 +27,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "libxml-ruby"
   spec.add_dependency "rack"
   spec.add_dependency(%q<rubyzip>, [">= 1.0.0"])
-
 
 end
