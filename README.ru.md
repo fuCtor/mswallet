@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/fuCtor/mswallet.svg)](https://travis-ci.org/fuCtor/mswallet)
+
 # Mswallet
 
 [English version](https://github.com/fuCtor/mswallet/blob/master/README.md)
