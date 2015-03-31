@@ -24,7 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rack-test', ['>= 0']
   spec.add_development_dependency 'simplecov'
-  spec.add_development_dependency 'codeclimate-test-reporter', require: nil
   spec.add_dependency 'libxml-ruby'
   spec.add_dependency 'rack'
   spec.add_dependency('rubyzip', [">= 1.0.0"])
