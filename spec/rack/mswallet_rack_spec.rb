@@ -104,7 +104,7 @@ describe Rack::MswalletRack do
 
     context 'custom handler class' do
       before do
-        Mswallet.rack_handler  = MyCustomHandler
+        Mswallet.custom_rack_handler  = MyCustomHandler
         expect(MyCustomHandler).to receive(:update).with('path' => update_path, 'serialNumber' => serial).and_return (result)
         get update_path
       end
