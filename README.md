@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/fuCtor/mswallet.svg)](https://travis-ci.org/fuCtor/mswallet)
+[![Code Climate](https://codeclimate.com/github/fuCtor/mswallet/badges/gpa.svg)](https://codeclimate.com/github/fuCtor/mswallet)
+[![Test Coverage](https://codeclimate.com/github/fuCtor/mswallet/badges/coverage.svg)](https://codeclimate.com/github/fuCtor/mswallet)
 
 # Mswallet
 
@@ -26,7 +28,7 @@ If you want to also support the update endpoint you will also need to include th
 
     config.middleware.use Rack::PassbookRack
 
-Mswallet::handler are used by default for update request handle. You can set custom class.
+Mswallet::Handler are used by default for update request handle. You can set custom class.
 
     Mswallet.custom_rack_handler  = MyCustomHandler
 

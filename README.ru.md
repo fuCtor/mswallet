@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/fuCtor/mswallet.svg)](https://travis-ci.org/fuCtor/mswallet)
+[![Code Climate](https://codeclimate.com/github/fuCtor/mswallet/badges/gpa.svg)](https://codeclimate.com/github/fuCtor/mswallet)
+[![Test Coverage](https://codeclimate.com/github/fuCtor/mswallet/badges/coverage.svg)](https://codeclimate.com/github/fuCtor/mswallet)
 
 # Mswallet
 
@@ -25,7 +27,7 @@
 
     config.middleware.use Rack::PassbookRack
 
-По-умолчанию для обработки запросов используется класс Mswallet::handler, но вы можете установить свой:
+По-умолчанию для обработки запросов используется класс Mswallet::Handler, но вы можете установить свой:
 
     Mswallet.custom_rack_handler  = MyCustomHandler
 
