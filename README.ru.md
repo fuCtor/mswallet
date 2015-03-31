@@ -1,6 +1,6 @@
 # Mswallet
 
-[English version](#)
+[English version](https://github.com/fuCtor/mswallet/blob/master/README.md)
 
 Гем для генерации mswallet файлов для приложения Кошелек на платформе WP8+.
 

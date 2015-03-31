@@ -1,6 +1,6 @@
 # Mswallet
 
-[Русская версия](#)
+[Русская версия](https://github.com/fuCtor/mswallet/blob/master/README.ru.md)
 
 This gem let's you create a mswallet for Wallet app in WP8+.
 
