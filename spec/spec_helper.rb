@@ -1,10 +1,14 @@
-require 'simplecov'
-SimpleCov.start do
-  add_filter '/spec/'
+if ENV['TRAVIS_CI']
+  require 'codeclimate-test-reporter'
+  CodeClimate::TestReporter.start
+else
+  require 'simplecov'
+  SimpleCov.start do
+    add_filter '/spec/'
 
-  add_group 'Lib', 'lib'
+    add_group 'Lib', 'lib'
+  end
 end
-
 
 libdir = File.expand_path( '../lib', File.dirname(__FILE__))
 $LOAD_PATH.unshift(libdir) unless $LOAD_PATH.include?(libdir)
