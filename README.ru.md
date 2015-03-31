@@ -1,30 +1,29 @@
 # Mswallet
 
-[Русская версия](#)
+[English version](#)
 
-This gem let's you create a mswallet for Wallet app in WP8+.
+Гем для генерации mswallet файлов для приложения Кошелек на платформе WP8+.
 
-## Installation
+## Установка
 
-Include the passbook gem in your project.
-IE in your Gemfile
+Для установки добавьте в ваш Gemfile:
 
     gem 'mswallet'
 
-and execute:
+И выполните:
 
     $ bundle
 
-Or manual install:
+Или можете установить вручную:
 
     $ gem install mswallet
 
-## Configuration
-If you want to also support the update endpoint you will also need to include the Rack::MswalletRack middleware. In rails your config will look something like this.
+## Конфигурирование
+Если вы хотиет поддерживать запросы на обновление карточек, вы можете добавить Rack::PassbookRack к вашим middleware. В Rails это будет выглядеть так:
 
     config.middleware.use Rack::PassbookRack
 
-Mswallet::handler are used by default for update request handle. You can set custom class.
+По-умолчанию для обработки запросов используется класс Mswallet::handler, но вы можете установить свой:
 
     Mswallet.custom_rack_handler  = MyCustomHandler
 
@@ -34,7 +33,7 @@ Mswallet::handler are used by default for update request handle. You can set cus
       m.custom_rack_handler  = MyCustomHandler
     end
 
-## Usage
+## Использование
 
     pass = Mswallet::Pass.new
 
@@ -68,12 +67,12 @@ Mswallet::handler are used by default for update request handle. You can set cus
     mswallet = pass.file
     send_file mswallet.path, type: 'application/vnd.ms.wallet', disposition: 'attachment', filename: "pass.mswallet"
 
-    # Or a stream
+    # Или потоком
 
     mswallet = pass.stream
     send_data mswallet.string, type: 'application/vnd.ms.wallet', disposition: 'attachment', filename: "pass.mswallet"
 
-## Contributing
+## Внесение изменений
 
 1. Fork it ( http://github.com/fuCtor/mswallet/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)

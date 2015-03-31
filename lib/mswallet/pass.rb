@@ -15,10 +15,12 @@ module Mswallet
     end
 
     def []=(key, val)
-      el = XML::Node.new(key)
-      el.content = val
-      @pass.root << el
-      el
+      result = convert_to_xml(key, val)
+      if result.is_a? Array
+        result.each { |item| @pass.root << item }
+      else
+        @pass.root << result
+      end
     end
 
     def [](key)
@@ -60,7 +62,45 @@ module Mswallet
       return doc
     end
 
+    def valid?
+      check_pass
+      true
+    rescue
+      false
+    end
+
     private
+
+    def convert_to_xml(key, val)
+      case val
+        when Hash
+          el = XML::Node.new(key)
+          val.each do |k,v|
+            res = convert_to_xml(k, v)
+            if res.is_a? Array
+              res.each {|item| el << item }
+            else
+              el << res
+            end
+          end
+        when Array
+          el = []
+          val.each do |v|
+            el << convert_to_xml(key, v)
+          end
+        else
+          el = XML::Node.new(key)
+          if val
+            el.content = val.to_s
+          else
+            text_node = XML::Node.new_text('&#160;')
+            text_node.output_escaping = false
+            el << text_node
+          end
+
+      end
+      el
+    end
 
     def check_pass
 # Check for default images

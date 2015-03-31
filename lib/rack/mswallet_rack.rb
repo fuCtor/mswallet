@@ -13,7 +13,8 @@ module Rack
       serial_number = find_id @parameters['path']
       @parameters['serialNumber'] = serial_number
       if serial_number
-        response = Mswallet::Handler.update(@parameters)
+        handler = Mswallet.rack_handler || Mswallet::Handler
+        response = handler.update(@parameters)
         header = {'Content-Type' => 'application/vnd.ms.wallet',
                   'Content-Disposition' => 'attachment',
                   'filename' => "#{serial_number}.mswallet"}

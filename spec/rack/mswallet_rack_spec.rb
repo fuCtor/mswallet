@@ -91,7 +91,6 @@ describe Rack::MswalletRack do
         it { should eq 200 }
       end
 
-
     end
 
     context 'get update pass with wrong serial' do
@@ -103,8 +102,16 @@ describe Rack::MswalletRack do
       it { should eq 304 }
     end
 
+    context 'custom handler class' do
+      before do
+        Mswallet.rack_handler  = MyCustomHandler
+        expect(MyCustomHandler).to receive(:update).with('path' => update_path, 'serialNumber' => serial).and_return (result)
+        get update_path
+      end
+      let(:result) { pass }
+      it { should eq 200 }
+    end
   end
-
 end
 
 
@@ -118,6 +125,12 @@ def app
 end
 
 class Mswallet::Handler
+  def self.update(options)
+
+  end
+end
+
+class MyCustomHandler
   def self.update(options)
 
   end

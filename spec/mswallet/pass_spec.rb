@@ -127,14 +127,43 @@ describe Mswallet::Pass do
     end
   end
 
-  it '#[]=' do
-    expect(wallet.root.find('DisplayMessage').first).to be_nil
 
-    expect{ pass['DisplayMessage'] = 'test' }.to_not raise_error
+  context '#[]=' do
+    let(:key) {'key'}
+    after do
+      expect(wallet.root.find(key).first).to be_nil
 
-    expect(wallet.root.find('DisplayMessage').first).to_not be_nil
-    expect(wallet.root.find('DisplayMessage').first.content).to eq('test')
-    expect(pass['DisplayMessage'].content).to eq('test')
+      expect{ pass[key] = value }.to_not raise_error
+
+      expect(wallet.root.find(key).first).to_not be_nil
+      expect(pass[key]).to be_instance_of XML::Node
+    end
+
+    context 'string value' do
+      let(:value) { 'content' }
+      it do; end
+    end
+
+    context 'hash value' do
+      let(:value) { { 'key2' => 'content', key3: 'content'} }
+      it do; end
+    end
+
+    context 'string array value' do
+      let(:value) { %w(a b c) }
+      it do; end
+    end
+
+    context 'hash array value' do
+      let(:value) { [{a: 1},{b: 2}] }
+      it do; end
+    end
+
+    context 'nil value' do
+      let(:value) { nil }
+      it do; end
+    end
+
   end
 
   context 'valid pass' do
