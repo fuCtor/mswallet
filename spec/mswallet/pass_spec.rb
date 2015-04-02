@@ -107,6 +107,7 @@ describe Mswallet::Pass do
     expect { pass } .to_not raise_error
 
     [99, 159, 336].each do |size|
+      expect( pass.valid? ) .to be_falsey
       expect { pass.stream } .to raise_error /Logo#{size}x#{size}/
       expect { pass.add_file name: "Logo#{size}x#{size}.png", content: ''  } .to_not raise_error
     end
@@ -125,6 +126,7 @@ describe Mswallet::Pass do
       el.remove!
       expect { pass.stream } .to raise_error msg
     end
+    expect( pass.valid? ) .to be_truthy
   end
 
 

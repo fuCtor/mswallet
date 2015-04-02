@@ -6,7 +6,7 @@
 
 [Русская версия](https://github.com/fuCtor/mswallet/blob/master/README.ru.md)
 
-This gem let's you create a mswallet for Wallet app in WP8+.
+This gem let's you [create a mswallet for Wallet app in WP8+](https://msdn.microsoft.com/en-us/library/dn631256.aspx).
 
 ## Installation
 
@@ -26,7 +26,7 @@ Or manual install:
 ## Configuration
 If you want to also support the update endpoint you will also need to include the Rack::MswalletRack middleware. In rails your config will look something like this.
 
-    config.middleware.use Rack::PassbookRack
+    config.middleware.use Rack::MswalletRack
 
 Mswallet::Handler are used by default for update request handle. You can set custom class.
 
@@ -56,6 +56,11 @@ Mswallet::Handler are used by default for update request handle. You can set cus
                     'Key' => 'Hd1',
                     'Name' => 'Header Text',
                     'Value' => 'Name'
+                },
+                {
+                    'Key' => 'Hd2',
+                    'Name' => 'Header Text2',
+                    'Value' => nil        #empty value: &#160;
                 }
             ]
         }

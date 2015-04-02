@@ -6,7 +6,7 @@
 
 [English version](https://github.com/fuCtor/mswallet/blob/master/README.md)
 
-Гем для генерации mswallet файлов для приложения Кошелек на платформе WP8+.
+Гем для [генерации mswallet файлов](https://msdn.microsoft.com/en-us/library/dn631256.aspx) для приложения Кошелек на платформе WP8+.
 
 ## Установка
 
@@ -25,7 +25,7 @@
 ## Конфигурирование
 Если вы хотиет поддерживать запросы на обновление карточек, вы можете добавить Rack::PassbookRack к вашим middleware. В Rails это будет выглядеть так:
 
-    config.middleware.use Rack::PassbookRack
+    config.middleware.use Rack::MswalletRack
 
 По-умолчанию для обработки запросов используется класс Mswallet::Handler, но вы можете установить свой:
 
@@ -55,6 +55,11 @@
                     'Key' => 'Hd1',
                     'Name' => 'Header Text',
                     'Value' => 'Name'
+                },
+                {
+                    'Key' => 'Hd2',
+                    'Name' => 'Header Text2',
+                    'Value' => nil        #пустое значение: &#160;
                 }
             ]
         }
