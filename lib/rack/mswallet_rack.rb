@@ -10,6 +10,7 @@ module Rack
       @parameters['authToken'] = env['HTTP_AUTHENTICATIONTOKEN'] if env['HTTP_AUTHENTICATIONTOKEN']
       @parameters.merge!(Rack::Utils.parse_nested_query(env['QUERY_STRING']))
       @parameters['path'] = env['PATH_INFO']
+      @parameters['host'] = env['HOST']
       serial_number = find_id @parameters['path']
       @parameters['serialNumber'] = serial_number
       if serial_number

@@ -1,3 +1,4 @@
+[![Gem Version](https://badge.fury.io/rb/mswallet.svg)](http://badge.fury.io/rb/mswallet)
 [![Build Status](https://travis-ci.org/fuCtor/mswallet.svg)](https://travis-ci.org/fuCtor/mswallet)
 [![Code Climate](https://codeclimate.com/github/fuCtor/mswallet/badges/gpa.svg)](https://codeclimate.com/github/fuCtor/mswallet)
 [![Test Coverage](https://codeclimate.com/github/fuCtor/mswallet/badges/coverage.svg)](https://codeclimate.com/github/fuCtor/mswallet)
